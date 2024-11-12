@@ -1,0 +1,25 @@
+// Simulate data fetching with callback
+function fetchDataWithCallback(callback) {
+  // Simulate delay (e.g., network latency)
+  setTimeout(() => {
+    // Randomly introduce an error (20% chance)
+    if (Math.random() < 0.2) {
+      // Pass error message to callback
+      callback("Error fetching data");
+    } else {
+      // Simulate successful data fetching
+      const data = { message: "Data fetched successfully" };
+      callback(null, data);
+    }
+  }, 1000);
+}
+
+// Execute fetchDataWithCallback
+fetchDataWithCallback((error, data) => {
+  if (error) {
+    console.log(error); // Log "Error fetching data" if error occurs
+  } else {
+    console.log(data); // Log fetched data
+  }
+});
+``}
