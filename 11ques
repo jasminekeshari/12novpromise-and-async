@@ -1,0 +1,70 @@
+// Simulate delay function
+const delay = (seconds) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, seconds * 1000);
+  });
+};
+
+// Register user function
+const registerUser = (username, callback) => {
+  delay(1).then(() => {
+    if (username === '') {
+      callback('Username cannot be empty');
+    } else {
+      callback(null, username);
+    }
+  });
+};
+
+// Send verification email function
+const sendVerification = (username, callback) => {
+  delay(1).then(() => {
+    if (username === 'test') {
+      callback('Verification email sending failed');
+    } else {
+      callback(null, username);
+    }
+  });
+};
+
+// Login user function
+const loginUser = (username, callback) => {
+  delay(1).then(() => {
+    if (username === 'admin') {
+      callback('Login failed');
+    } else {
+      callback(null, username);
+    }
+  });
+};
+
+// Display welcome message function
+const displayWelcomeMessage = (username) => {
+  console.log(`Welcome, ${username}!`);
+};
+
+// Workflow execution
+const executeWorkflow = (username) => {
+  registerUser(username, (err, registeredUsername) => {
+    if (err) {
+      console.log(`Registration failed: ${err}`);
+    } else {
+      sendVerification(registeredUsername, (err, verifiedUsername) => {
+        if (err) {
+          console.log(`Verification failed: ${err}`);
+        } else {
+          loginUser(verifiedUsername, (err, loggedUsername) => {
+            if (err) {
+              console.log(`Login failed: ${err}`);
+ } else {
+              displayWelcomeMessage(loggedUsername);
+            }
+          });
+        }
+      });
+    }
+  });
+};
+
+// Test the workflow
+executeWorkflow('johnDoe');
